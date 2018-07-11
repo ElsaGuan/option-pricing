@@ -1,5 +1,3 @@
-#! /usr/bin/python
-# -*- coding: utf8 -*-
 from  tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
@@ -12,13 +10,11 @@ class option_pricer(Frame):
         content = Frame(self)
         welcome_lab = Label(content, text='Welcome to use mini option pricer', font=("Helvetica", 18))
         result = Label(content, text="result:")
-        # q1_result = Entry(content)######################
+
 
         content.grid(column=0, row=0)
         welcome_lab.grid(column=0, row=0, columnspan=5)
         result.grid(column=1, row=16)
-        # q1_result.grid(column=1,row=18)################
-        # q1_result.configure(state="disabled")################################
         Label(content, text=" ").grid(row=0, pady=20)
         self.resultContent = Label(content, text='')
         self.resultContent.grid(column=1, row=16, columnspan=3, pady=20)
@@ -107,23 +103,19 @@ class option_pricer(Frame):
                 repo = 0.0
                 resultPrice = formula.cal_eur(S1, K, r, repo, T, sigma1, type)
                 self.resultContent['text'] = "%.5f" % resultPrice
-                    # stock, strike, time, maturity, volatility, repo, rfr
-                    # resultPrice = optFunc.call_black_scholes(S1, K, 0.0, T, sigma1, repo, r
-                    # Q1
+         
             elif selection == 'Implied volatility calculator':
                 repo = float(self.q8_parameter_p1_layout.get())
                 premium = float(self.q8_parameter_p2_layout.get())
                 resultPrice = formula.cal_iv(S1,K,r,repo,T,premium,type)
                 self.resultContent['text'] = "%.5f" % resultPrice
-                    # Q2
+                
             elif selection == "American call/put option":
                 n = int(self.q6_parameter_p1_layout.get())
                 sigma1 = float(self.q2_parameter_p1_layout.get())
-                # S, K, r, T, sigma, N, type
-                # resultPrice = optFunc.bino_tree(S1, K, r, T, sigma1, n, type)
                 resultPrice = formula.cal_am(S1,K,r,T,sigma1,n,type)
                 self.resultContent['text'] = "%.5f" % resultPrice
-                #  Q3
+            
             elif selection == 'GeoMetric Asian option':
                 n = int(self.q6_parameter_p1_layout.get())
                 sigma1 = float(self.q2_parameter_p1_layout.get())
@@ -136,7 +128,6 @@ class option_pricer(Frame):
                 path = int(self.q7_parameter_p1_layout.get())
                 sigma1 = float(self.q2_parameter_p1_layout.get())
                 cv = self.cvType.get()
-                # S, sigma, r, T, K, step, type, path, cv
                 resultPrice = formula.cal_arith_asian(S1,K,r,T,sigma1,n,path,type,cv)
                 self.resultContent['text'] = "95%CI：[" + "%.5f" % resultPrice[0] + "," + "%.5f" % resultPrice[1] + "]"
                 # Q5
@@ -148,7 +139,7 @@ class option_pricer(Frame):
                 # S1, S2, sigma1, sigma2, r, T, K ,corr, type
                 resultPrice = formula.cal_geo_bskt(S1,S2,sigma1,sigma2,r,T,K,corr,type)
                 self.resultContent['text'] = "%.5f" % resultPrice
-                # Q6
+             
             elif selection == 'Arithmetic basket option':
                 S2 = float(self.q1_parameter_p2_layout.get())
                 sigma1 = float(self.q2_parameter_p1_layout.get())
@@ -156,11 +147,9 @@ class option_pricer(Frame):
                 corr = float(self.q5_parameter_p1_layout.get())
                 path = int(self.q7_parameter_p1_layout.get())
                 cv = self.cvType.get()
-                # S1, S2, sigma1, sigma2, r, T, K, corr, type, path, cv
-                # resultPrice = optFunc.arith_basket(S1, S2, sigma1, sigma2, r, T, K, corr, type, path, cv)
                 resultPrice = formula.cal_arith_bskt(S1,S2,sigma1,sigma2,r,T,K,corr,path,type,cv)
                 self.resultContent['text'] = "95%CI：["+"%.5f" % resultPrice[0]+","+"%.5f" % resultPrice[1]+"]"
-                # Q7
+           
             # -------------------------------
             # show result in result box
 
@@ -365,14 +354,6 @@ class option_pricer(Frame):
         self.createWidget()
         self.selected()
 
-# v = StringVar(root)
-# v.set("Q1 European call/put option")
-# om = OptionMenu(root, v, "Q2 Implied volatility calculator",
-#                     "Q3 American call/put option", "Q4 GeoMetric Asian option",
-#                     "Q5 Arithmetic Asian option", "Q6 GeoMetric basket option",
-#                     "Q7 Arithmetic basket option")
-# om.pack()
-# om.grid(column=0,row=14)
 
 root = Tk()
 root.title("COMP7405 Assign Group5")
